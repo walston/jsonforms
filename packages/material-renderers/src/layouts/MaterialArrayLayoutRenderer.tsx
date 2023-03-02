@@ -30,7 +30,6 @@ import {
   RankedTester,
   rankWith
 } from '@jsonforms/core';
-import { Hidden } from '@mui/material';
 import { MaterialArrayLayout } from './MaterialArrayLayout';
 import { withJsonFormsArrayLayoutProps } from '@jsonforms/react';
 
@@ -42,15 +41,9 @@ export const MaterialArrayLayoutRenderer = ({
   const addItemCb = useCallback((p: string, value: any) => addItem(p, value), [
     addItem
   ]);
-  return (
-    <Hidden xsUp={!visible}>
-      <MaterialArrayLayout
-        visible={visible}
-        addItem={addItemCb}
-        {...props}
-      />
-    </Hidden>
-  );
+  return visible
+    ? <MaterialArrayLayout visible={visible} addItem={addItemCb} {...props} />
+    : null
 };
 
 export const materialArrayLayoutTester: RankedTester = rankWith(

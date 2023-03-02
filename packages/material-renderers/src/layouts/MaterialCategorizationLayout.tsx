@@ -23,7 +23,7 @@
   THE SOFTWARE.
 */
 import React, {useState, useMemo} from 'react';
-import { AppBar, Hidden, Tab, Tabs } from '@mui/material';
+import { AppBar, Tab, Tabs } from '@mui/material';
 import {
   and,
   Categorization,
@@ -119,8 +119,8 @@ export const MaterialCategorizationLayoutRenderer = (props: MaterialCategorizati
     )
   }, [categories, t])
 
-  return (
-    <Hidden xsUp={!visible}>
+  return visible ? (
+    <>
       <AppBar position='static'>
         <Tabs value={activeCategory} onChange={onTabChange} textColor='inherit' indicatorColor='secondary' variant='scrollable'>
           {categories.map((_, idx: number) => (
@@ -131,8 +131,8 @@ export const MaterialCategorizationLayoutRenderer = (props: MaterialCategorizati
       <div style={{ marginTop: '0.5em' }}>
         <MaterialLayoutRenderer {...childProps} />
       </div>
-    </Hidden>
-  );
+    </>
+  ) : null;
 };
 
 export default withAjvProps(withTranslateProps(withJsonFormsLayoutProps(MaterialCategorizationLayoutRenderer)));

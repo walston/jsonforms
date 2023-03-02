@@ -24,7 +24,7 @@
 */
 import isEmpty from 'lodash/isEmpty';
 import React from 'react';
-import { Card, CardContent, CardHeader, Hidden } from '@mui/material';
+import { Card, CardContent, CardHeader } from '@mui/material';
 import {
   GroupLayout,
   LayoutProps,
@@ -44,8 +44,8 @@ const style: { [x: string]: any } = { marginBottom: '10px' };
 
 const GroupComponent = React.memo(({ visible, enabled, uischema, label, ...props }: MaterialLabelableLayoutRendererProps) => {
   const groupLayout = uischema as GroupLayout;
-  return (
-    <Hidden xsUp={!visible}>
+  return visible ? (
+    <>
       <Card style={style}>
         {!isEmpty(label) && (
           <CardHeader title={label} />
@@ -54,8 +54,8 @@ const GroupComponent = React.memo(({ visible, enabled, uischema, label, ...props
           <MaterialLayoutRenderer {...props} visible={visible} enabled={enabled} elements={groupLayout.elements} />
         </CardContent>
       </Card>
-    </Hidden>
-  );
+    </>
+  ) : null;
 });
 
 export const MaterializedGroupLayoutRenderer = ({ uischema, schema, path, visible, enabled, renderers, cells, direction, label }: LayoutProps) => {
